@@ -6,7 +6,7 @@ import com.ruoyi.wx.domain.WxAlternative;
 /**
  * 备选老师Service接口
  * 
- * @author w
+ * @author ruoyi
  * @date 2021-02-24
  */
 public interface IWxAlternativeService 
@@ -14,10 +14,10 @@ public interface IWxAlternativeService
     /**
      * 查询备选老师
      * 
-     * @param id 备选老师ID
+     * @param traineeId 备选老师ID
      * @return 备选老师
      */
-    public WxAlternative selectWxAlternativeById(Long id);
+    public WxAlternative selectWxAlternativeById(Long traineeId);
 
     /**
      * 查询备选老师列表
@@ -46,16 +46,16 @@ public interface IWxAlternativeService
     /**
      * 批量删除备选老师
      * 
-     * @param ids 需要删除的备选老师ID
+     * @param traineeIds 需要删除的备选老师ID
      * @return 结果
      */
-    public int deleteWxAlternativeByIds(Long[] ids);
+    public int deleteWxAlternativeByIds(Long[] traineeIds);
 
     /**
      * 删除备选老师信息
      * 
-     * @param id 备选老师ID
+     * @param traineeId 备选老师ID
      * @return 结果
      */
-    public int deleteWxAlternativeById(Long id);
+    public int deleteWxAlternativeById(Long traineeId);
 }

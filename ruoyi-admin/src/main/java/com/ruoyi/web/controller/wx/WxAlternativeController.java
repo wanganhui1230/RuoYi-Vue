@@ -23,7 +23,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
 /**
  * 备选老师Controller
  * 
- * @author w
+ * @author ruoyi
  * @date 2021-02-24
  */
 @RestController
@@ -62,10 +62,10 @@ public class WxAlternativeController extends BaseController
      * 获取备选老师详细信息
      */
     @PreAuthorize("@ss.hasPermi('wx:alternative:query')")
-    @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id)
+    @GetMapping(value = "/{traineeId}")
+    public AjaxResult getInfo(@PathVariable("traineeId") Long traineeId)
     {
-        return AjaxResult.success(wxAlternativeService.selectWxAlternativeById(id));
+        return AjaxResult.success(wxAlternativeService.selectWxAlternativeById(traineeId));
     }
 
     /**
@@ -95,9 +95,9 @@ public class WxAlternativeController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('wx:alternative:remove')")
     @Log(title = "备选老师", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
+	@DeleteMapping("/{traineeIds}")
+    public AjaxResult remove(@PathVariable Long[] traineeIds)
     {
-        return toAjax(wxAlternativeService.deleteWxAlternativeByIds(ids));
+        return toAjax(wxAlternativeService.deleteWxAlternativeByIds(traineeIds));
     }
 }

@@ -4,8 +4,11 @@ package com.ruoyi.web.controller.api;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
+import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.config.RuoYiConfig;
 import com.ruoyi.common.core.controller.BaseController;
+import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.file.FileUploadUtils;
 import com.ruoyi.framework.config.ServerConfig;
 import com.ruoyi.web.controller.api.entity.*;
@@ -16,6 +19,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,6 +52,9 @@ public class ApiController extends BaseController {
 
     @Autowired
     private IWxTraineeService wxTraineeService;
+
+    @Autowired
+    private IWxAlternativeService wxAlternativeService;
 
     /**
      * 获取树菜单
@@ -287,6 +294,45 @@ public class ApiController extends BaseController {
         response.setResult(repUser);
         return response;
     }
+
+
+    /**
+     * 新增备选老师
+     */
+
+    @PostMapping("/addWxAlternative")
+    @ApiOperation(value = "新增备选老师")
+    public Response addWxAlternative(WxAlternative wxAlternative)
+    {
+        Response response = new Response<>();
+        int code = wxAlternativeService.insertWxAlternative(wxAlternative);
+
+        if(code>0){
+            response.setResult("成功");
+        }else{
+            response.setErrorMessage("失败");
+        }
+        return response;
+    }
+
+    /**
+     * 邀请备选老师
+     */
+    @PostMapping("/editWxAlternative")
+    @ApiOperation(value = "邀请备选老师")
+    public Response editWxAlternative(WxAlternative wxAlternative)
+    {
+        Response response = new Response<>();
+        int code = wxAlternativeService.updateWxAlternative(wxAlternative);
+
+        if(code>0){
+            response.setResult("成功");
+        }else{
+            response.setErrorMessage("失败");
+        }
+        return response;
+    }
+
 
 
 

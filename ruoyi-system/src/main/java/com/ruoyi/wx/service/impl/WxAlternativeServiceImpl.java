@@ -11,7 +11,7 @@ import com.ruoyi.wx.service.IWxAlternativeService;
 /**
  * 备选老师Service业务层处理
  * 
- * @author w
+ * @author ruoyi
  * @date 2021-02-24
  */
 @Service
@@ -23,13 +23,13 @@ public class WxAlternativeServiceImpl implements IWxAlternativeService
     /**
      * 查询备选老师
      * 
-     * @param id 备选老师ID
+     * @param traineeId 备选老师ID
      * @return 备选老师
      */
     @Override
-    public WxAlternative selectWxAlternativeById(Long id)
+    public WxAlternative selectWxAlternativeById(Long traineeId)
     {
-        return wxAlternativeMapper.selectWxAlternativeById(id);
+        return wxAlternativeMapper.selectWxAlternativeById(traineeId);
     }
 
     /**
@@ -72,24 +72,24 @@ public class WxAlternativeServiceImpl implements IWxAlternativeService
     /**
      * 批量删除备选老师
      * 
-     * @param ids 需要删除的备选老师ID
+     * @param traineeIds 需要删除的备选老师ID
      * @return 结果
      */
     @Override
-    public int deleteWxAlternativeByIds(Long[] ids)
+    public int deleteWxAlternativeByIds(Long[] traineeIds)
     {
-        return wxAlternativeMapper.deleteWxAlternativeByIds(ids);
+        return wxAlternativeMapper.deleteWxAlternativeByIds(traineeIds);
     }
 
     /**
      * 删除备选老师信息
      * 
-     * @param id 备选老师ID
+     * @param traineeId 备选老师ID
      * @return 结果
      */
     @Override
-    public int deleteWxAlternativeById(Long id)
+    public int deleteWxAlternativeById(Long traineeId)
     {
-        return wxAlternativeMapper.deleteWxAlternativeById(id);
+        return wxAlternativeMapper.deleteWxAlternativeById(traineeId);
     }
 }

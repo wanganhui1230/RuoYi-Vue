@@ -2,16 +2,14 @@ package com.ruoyi.web.controller.api;
 
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.ruoyi.common.config.RuoYiConfig;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.utils.file.FileUploadUtils;
 import com.ruoyi.framework.config.ServerConfig;
-import com.ruoyi.web.controller.api.entity.RepArea;
-import com.ruoyi.web.controller.api.entity.RepTreelist;
-import com.ruoyi.web.controller.api.entity.RepUpload;
-import com.ruoyi.web.controller.api.entity.Response;
+import com.ruoyi.web.controller.api.entity.*;
 import com.ruoyi.wx.domain.WxArea;
 import com.ruoyi.wx.domain.WxSubject;
 import com.ruoyi.wx.domain.WxSubjectDetails;
@@ -20,6 +18,7 @@ import com.ruoyi.wx.service.IWxSubjectDetailsService;
 import com.ruoyi.wx.service.IWxSubjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-
+@Slf4j
 @Api(tags = "微信小程序接口")
 @RestController
 @RequestMapping("/api")
@@ -132,5 +131,48 @@ public class ApiController {
             return response;
         }
     }
+
+
+    @PostMapping("/decodeUserInfo")
+    @ApiOperation(value = "获取微信信息和手机号")
+    private Response<RepWx> decodeUserInfo(PayDto payDto) {
+        Response<RepWx> response = new Response<>();
+        String encryptedData = payDto.getEncryptedData();
+        String iv = payDto.getIv();
+        String code = payDto.getCode();
+        log.info("前端传入到decodeUserInfo 的encryptedData == " + encryptedData+"iv == " + iv+"code == "+code);
+        Map<String,Object> map = new HashMap<>();
+        if (code == null || code.length() == 0) {
+            response.setErrorMessage("code 不能为空");
+            return response;
+        }
+        String wechatAppId = "";
+        String wechatSecretKey = "";
+        String grantType = "authorization_code";
+        String params = "appid=" + wechatAppId + "&secret="+wechatSecretKey+"&js_code=" + code + "&grant_type=" + grantType;
+        String sr = HttpRequest.sendGet("https://api.weixin.qq.com/sns/jscode2session", params);
+        JSONObject json = JSONObject.parseObject(sr);
+
+        String sessionKey = String.valueOf(json.get("session_key"));
+        WXBizDataCrypt wxBizDataCrypt = new WXBizDataCrypt("wx_v3.appID.sp",sessionKey);
+        JSONObject jsonObject = wxBizDataCrypt.decryptData(encryptedData, iv);
+
+        if(null ==json.get("openid") && "".equals(json.get("openid"))){
+            response.setErrorMessage("失败");
+            return response;
+        }else{
+            RepWx userInfo = new RepWx();
+            userInfo.setOpenId(json.get("openid").toString());
+            userInfo.setPhoneNumber(jsonObject.get("phoneNumber").toString());
+            log.info("jsonObject:"+jsonObject);
+            log.info("手机号："+jsonObject.get("phoneNumber"));
+            response.setResult(userInfo);
+        }
+        return response;
+    }
+
+
+
+
 
 }

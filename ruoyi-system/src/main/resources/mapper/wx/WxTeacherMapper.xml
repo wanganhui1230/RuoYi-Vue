@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.wx.mapper.WxTeacherMapper">
+    
+    <resultMap type="WxTeacher" id="WxTeacherResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="subject"    column="subject"    />
+        <result property="area"    column="area"    />
+        <result property="fraction"    column="fraction"    />
+        <result property="colleges"    column="colleges"    />
+        <result property="loginTime"    column="login_time"    />
+        <result property="image"    column="image"    />
+        <result property="numberId"    column="number_id"    />
+        <result property="openId"    column="open_id"    />
+        <result property="sex"    column="sex"    />
+        <result property="identity"    column="Identity"    />
+        <result property="phone"    column="phone"    />
+        <result property="wechat"    column="wechat"    />
+        <result property="qq"    column="qq"    />
+        <result property="cardZ"    column="card_z"    />
+        <result property="cardF"    column="card_f"    />
+        <result property="studentCard"    column="student_card"    />
+        <result property="cardH"    column="card_h"    />
+        <result property="status"    column="status"    />
+        <result property="heat"    column="heat"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="spare1"    column="spare1"    />
+        <result property="spare2"    column="spare2"    />
+        <result property="spare3"    column="spare3"    />
+        <result property="spare4"    column="spare4"    />
+        <result property="spare5"    column="spare5"    />
+        <result property="spare6"    column="spare6"    />
+        <result property="spare7"    column="spare7"    />
+        <result property="spare8"    column="spare8"    />
+        <result property="spare9"    column="spare9"    />
+        <result property="spare10"    column="spare10"    />
+    </resultMap>
+
+    <sql id="selectWxTeacherVo">
+        select id, name, subject, area, fraction, colleges, login_time, image, number_id, open_id, sex, Identity, phone, wechat, qq, card_z, card_f, student_card, card_h, status, heat, create_by, create_time, update_by, update_time, spare1, spare2, spare3, spare4, spare5, spare6, spare7, spare8, spare9, spare10 from wx_teacher
+    </sql>
+
+    <select id="selectWxTeacherList" parameterType="WxTeacher" resultMap="WxTeacherResult">
+        <include refid="selectWxTeacherVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="subject != null  and subject != ''"> and subject = #{subject}</if>
+            <if test="area != null  and area != ''"> and area = #{area}</if>
+            <if test="colleges != null  and colleges != ''"> and colleges like concat('%', #{colleges}, '%')</if>
+            <if test="sex != null "> and sex = #{sex}</if>
+            <if test="phone != null  and phone != ''"> and phone like concat('%', #{phone}, '%')</if>
+            <if test="wechat != null  and wechat != ''"> and wechat like concat('%', #{wechat}, '%')</if>
+            <if test="qq != null  and qq != ''"> and qq like concat('%', #{qq}, '%')</if>
+            <if test="cardH != null  and cardH != ''"> and card_h like concat('%', #{cardH}, '%')</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectWxTeacherById" parameterType="Long" resultMap="WxTeacherResult">
+        <include refid="selectWxTeacherVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertWxTeacher" parameterType="WxTeacher" useGeneratedKeys="true" keyProperty="id">
+        insert into wx_teacher
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="subject != null">subject,</if>
+            <if test="area != null">area,</if>
+            <if test="fraction != null">fraction,</if>
+            <if test="colleges != null">colleges,</if>
+            <if test="loginTime != null">login_time,</if>
+            <if test="image != null">image,</if>
+            <if test="numberId != null">number_id,</if>
+            <if test="openId != null">open_id,</if>
+            <if test="sex != null">sex,</if>
+            <if test="identity != null">Identity,</if>
+            <if test="phone != null">phone,</if>
+            <if test="wechat != null">wechat,</if>
+            <if test="qq != null">qq,</if>
+            <if test="cardZ != null">card_z,</if>
+            <if test="cardF != null">card_f,</if>
+            <if test="studentCard != null">student_card,</if>
+            <if test="cardH != null">card_h,</if>
+            <if test="status != null">status,</if>
+            <if test="heat != null">heat,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="spare1 != null">spare1,</if>
+            <if test="spare2 != null">spare2,</if>
+            <if test="spare3 != null">spare3,</if>
+            <if test="spare4 != null">spare4,</if>
+            <if test="spare5 != null">spare5,</if>
+            <if test="spare6 != null">spare6,</if>
+            <if test="spare7 != null">spare7,</if>
+            <if test="spare8 != null">spare8,</if>
+            <if test="spare9 != null">spare9,</if>
+            <if test="spare10 != null">spare10,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="subject != null">#{subject},</if>
+            <if test="area != null">#{area},</if>
+            <if test="fraction != null">#{fraction},</if>
+            <if test="colleges != null">#{colleges},</if>
+            <if test="loginTime != null">#{loginTime},</if>
+            <if test="image != null">#{image},</if>
+            <if test="numberId != null">#{numberId},</if>
+            <if test="openId != null">#{openId},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="identity != null">#{identity},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="wechat != null">#{wechat},</if>
+            <if test="qq != null">#{qq},</if>
+            <if test="cardZ != null">#{cardZ},</if>
+            <if test="cardF != null">#{cardF},</if>
+            <if test="studentCard != null">#{studentCard},</if>
+            <if test="cardH != null">#{cardH},</if>
+            <if test="status != null">#{status},</if>
+            <if test="heat != null">#{heat},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="spare1 != null">#{spare1},</if>
+            <if test="spare2 != null">#{spare2},</if>
+            <if test="spare3 != null">#{spare3},</if>
+            <if test="spare4 != null">#{spare4},</if>
+            <if test="spare5 != null">#{spare5},</if>
+            <if test="spare6 != null">#{spare6},</if>
+            <if test="spare7 != null">#{spare7},</if>
+            <if test="spare8 != null">#{spare8},</if>
+            <if test="spare9 != null">#{spare9},</if>
+            <if test="spare10 != null">#{spare10},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWxTeacher" parameterType="WxTeacher">
+        update wx_teacher
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="subject != null">subject = #{subject},</if>
+            <if test="area != null">area = #{area},</if>
+            <if test="fraction != null">fraction = #{fraction},</if>
+            <if test="colleges != null">colleges = #{colleges},</if>
+            <if test="loginTime != null">login_time = #{loginTime},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="numberId != null">number_id = #{numberId},</if>
+            <if test="openId != null">open_id = #{openId},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="identity != null">Identity = #{identity},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="wechat != null">wechat = #{wechat},</if>
+            <if test="qq != null">qq = #{qq},</if>
+            <if test="cardZ != null">card_z = #{cardZ},</if>
+            <if test="cardF != null">card_f = #{cardF},</if>
+            <if test="studentCard != null">student_card = #{studentCard},</if>
+            <if test="cardH != null">card_h = #{cardH},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="heat != null">heat = #{heat},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="spare1 != null">spare1 = #{spare1},</if>
+            <if test="spare2 != null">spare2 = #{spare2},</if>
+            <if test="spare3 != null">spare3 = #{spare3},</if>
+            <if test="spare4 != null">spare4 = #{spare4},</if>
+            <if test="spare5 != null">spare5 = #{spare5},</if>
+            <if test="spare6 != null">spare6 = #{spare6},</if>
+            <if test="spare7 != null">spare7 = #{spare7},</if>
+            <if test="spare8 != null">spare8 = #{spare8},</if>
+            <if test="spare9 != null">spare9 = #{spare9},</if>
+            <if test="spare10 != null">spare10 = #{spare10},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWxTeacherById" parameterType="Long">
+        delete from wx_teacher where id = #{id}
+    </delete>
+
+    <delete id="deleteWxTeacherByIds" parameterType="String">
+        delete from wx_teacher where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

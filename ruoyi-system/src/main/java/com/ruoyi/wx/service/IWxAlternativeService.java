@@ -57,5 +57,5 @@ public interface IWxAlternativeService
      * @param traineeId 备选老师ID
      * @return 结果
      */
-    public int deleteWxAlternativeById(Long traineeId);
+    public int deleteWxAlternativeById(WxAlternative wxAlternative);
 }

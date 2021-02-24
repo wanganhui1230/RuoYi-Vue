@@ -345,6 +345,28 @@ public class ApiController extends BaseController {
         return response;
     }
 
+    /**
+     * 删除备选老师
+     */
+    @PostMapping("deleteWxAlternative")
+    @ApiOperation(value = "删除备选老师")
+    public Response deleteWxAlternative(@ApiParam("学员id") @RequestParam Long traineeId
+            ,@ApiParam("老师id") @RequestParam Long teacherId)
+    {
+        Response response = new Response<>();
+        WxAlternative wxAlternative = new WxAlternative();
+        wxAlternative.setTeacherId(teacherId);
+        wxAlternative.setTraineeId(traineeId);
+        int code = wxAlternativeService.deleteWxAlternativeById(wxAlternative);
+
+        if(code>0){
+            response.setResult("成功");
+        }else{
+            response.setErrorMessage("失败");
+        }
+        return response;
+    }
+
 
 
 }

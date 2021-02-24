@@ -88,8 +88,8 @@ public class WxAlternativeServiceImpl implements IWxAlternativeService
      * @return 结果
      */
     @Override
-    public int deleteWxAlternativeById(Long traineeId)
+    public int deleteWxAlternativeById(WxAlternative wxAlternative)
     {
-        return wxAlternativeMapper.deleteWxAlternativeById(traineeId);
+        return wxAlternativeMapper.deleteWxAlternativeById(wxAlternative);
     }
 }

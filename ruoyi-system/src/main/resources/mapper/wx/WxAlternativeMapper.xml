@@ -53,8 +53,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where trainee_id = #{traineeId} and teacher_id = #{teacherId}
     </update>
 
-    <delete id="deleteWxAlternativeById" parameterType="Long">
-        delete from wx_alternative where trainee_id = #{traineeId}
+    <delete id="deleteWxAlternativeById" parameterType="WxAlternative">
+        delete from wx_alternative where trainee_id = #{traineeId} and teacher_id = #{teacherId}
     </delete>
 
     <delete id="deleteWxAlternativeByIds" parameterType="String">

@@ -2,6 +2,7 @@ package com.ruoyi.wx.service.impl;
 
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.wx.domain.ResWxTeacher;
 import com.ruoyi.wx.service.IWxTeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,18 @@ public class WxTeacherServiceImpl implements IWxTeacherService
     public List<WxTeacher> selectWxTeacherList(WxTeacher wxTeacher)
     {
         return wxTeacherMapper.selectWxTeacherList(wxTeacher);
+    }
+
+    /**
+     * 查询老师列表
+     *
+     * @param resWxTeacher 老师
+     * @return 老师
+     */
+    @Override
+    public List<WxTeacher> selectWxTeacherList(ResWxTeacher resWxTeacher)
+    {
+        return wxTeacherMapper.selectWxTeacherListWx(resWxTeacher);
     }
 
     /**

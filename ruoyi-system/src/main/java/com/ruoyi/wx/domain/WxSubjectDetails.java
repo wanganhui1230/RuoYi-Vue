@@ -30,7 +30,19 @@ public class WxSubjectDetails extends BaseEntity
     @Excel(name = "排序")
     private String sort;
 
-    public void setId(Long id) 
+    /** 全名 */
+    @Excel(name = "全名")
+    private String fullName;
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setId(Long id)
     {
         this.id = id;
     }

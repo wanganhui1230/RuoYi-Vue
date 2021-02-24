@@ -1,6 +1,8 @@
 package com.ruoyi.wx.mapper;
 
 import java.util.List;
+
+import com.ruoyi.wx.domain.ResWxTeacher;
 import com.ruoyi.wx.domain.WxTeacher;
 
 /**
@@ -26,6 +28,14 @@ public interface WxTeacherMapper
      * @return 老师集合
      */
     public List<WxTeacher> selectWxTeacherList(WxTeacher wxTeacher);
+
+    /**
+     * 查询老师列表
+     *
+     * @param resWxTeacher 老师
+     * @return 老师集合
+     */
+    public List<WxTeacher> selectWxTeacherListWx(ResWxTeacher resWxTeacher);
 
     /**
      * 新增老师

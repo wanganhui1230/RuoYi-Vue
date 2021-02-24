@@ -3,24 +3,23 @@ package com.ruoyi.web.controller.api;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.github.pagehelper.PageInfo;
 import com.ruoyi.common.config.RuoYiConfig;
-import com.ruoyi.common.core.domain.AjaxResult;
-import com.ruoyi.common.core.page.TableDataInfo;
+import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.utils.file.FileUploadUtils;
 import com.ruoyi.framework.config.ServerConfig;
 import com.ruoyi.web.controller.api.entity.*;
-import com.ruoyi.wx.domain.WxArea;
-import com.ruoyi.wx.domain.WxSubject;
-import com.ruoyi.wx.domain.WxSubjectDetails;
+import com.ruoyi.wx.domain.*;
+import com.ruoyi.wx.domain.ResWxTeacher;
 import com.ruoyi.wx.service.IWxAreaService;
 import com.ruoyi.wx.service.IWxSubjectDetailsService;
 import com.ruoyi.wx.service.IWxSubjectService;
+import com.ruoyi.wx.service.IWxTeacherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,7 +33,7 @@ import java.util.stream.Collectors;
 @Api(tags = "微信小程序接口")
 @RestController
 @RequestMapping("/api")
-public class ApiController {
+public class ApiController extends BaseController {
 
     @Autowired
     private IWxSubjectService wxSubjectService;
@@ -47,6 +46,9 @@ public class ApiController {
 
     @Autowired
     private ServerConfig serverConfig;
+
+    @Autowired
+    private IWxTeacherService wxTeacherService;
 
     /**
      * 获取树菜单
@@ -109,7 +111,7 @@ public class ApiController {
      */
     @PostMapping("/upload")
     @ApiOperation(value = "通用上传请求")
-    public Response<RepUpload> uploadFile(MultipartFile file) throws Exception
+    public Response<RepUpload> uploadFile(@RequestBody MultipartFile file) throws Exception
     {
         Response<RepUpload> response = new Response<>();
         try
@@ -171,6 +173,20 @@ public class ApiController {
         return response;
     }
 
+    /**
+     * 查询老师列表
+     */
+    @PostMapping("/list")
+    @ApiOperation(value = "获取教师列表")
+    public ResponsePage<List<WxTeacher>> list(ResWxTeacher resWxTeacher)
+    {
+        startPage(resWxTeacher.getPageNum(),resWxTeacher.getPageSize());
+        List<WxTeacher> list = wxTeacherService.selectWxTeacherList(resWxTeacher);
+        ResponsePage<List<WxTeacher>> response = new ResponsePage<>();
+        response.setResult(list);
+        response.setTotal(new PageInfo(list).getTotal());
+        return response;
+    }
 
 
 

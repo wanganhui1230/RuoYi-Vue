@@ -1,6 +1,9 @@
 package com.ruoyi.web.controller.wx.controller;
 
 import java.util.List;
+
+import com.ruoyi.wx.domain.WxSubject;
+import com.ruoyi.wx.service.IWxSubjectService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +35,9 @@ public class WxSubjectDetailsController extends BaseController
 {
     @Autowired
     private IWxSubjectDetailsService wxSubjectDetailsService;
+
+    @Autowired
+    private IWxSubjectService wxSubjectService;
 
     /**
      * 查询科目详情列表
@@ -76,6 +82,8 @@ public class WxSubjectDetailsController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody WxSubjectDetails wxSubjectDetails)
     {
+        WxSubject wsb = wxSubjectService.selectWxSubjectById(wxSubjectDetails.getWxSubjectDetails());
+        wxSubjectDetails.setFullName(wsb.getName()+wxSubjectDetails.getName());
         return toAjax(wxSubjectDetailsService.insertWxSubjectDetails(wxSubjectDetails));
     }
 
@@ -87,6 +95,8 @@ public class WxSubjectDetailsController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody WxSubjectDetails wxSubjectDetails)
     {
+        WxSubject wsb = wxSubjectService.selectWxSubjectById(wxSubjectDetails.getWxSubjectDetails());
+        wxSubjectDetails.setFullName(wsb.getName()+wxSubjectDetails.getName());
         return toAjax(wxSubjectDetailsService.updateWxSubjectDetails(wxSubjectDetails));
     }
 

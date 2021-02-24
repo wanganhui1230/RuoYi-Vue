@@ -2,6 +2,7 @@ package com.ruoyi.wx.domain;
 
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
@@ -18,120 +19,177 @@ public class WxTeacher extends BaseEntity
     private static final long serialVersionUID = 1L;
 
     /** 主键id */
+    @ApiModelProperty("主键id")
     private Long id;
 
     /** 老师名称 */
+    @ApiModelProperty("老师名称")
     @Excel(name = "老师名称")
     private String name;
 
-    /** 科目 */
-    @Excel(name = "科目")
+    /** 科目id */
+    @ApiModelProperty("科目id")
+    @Excel(name = "科目id")
     private String subject;
 
-    /** 区域 */
-    @Excel(name = "区域")
+    /** 区域id */
+    @ApiModelProperty("区域id")
+    @Excel(name = "区域id")
     private String area;
 
+    /** 科目 */
+    @ApiModelProperty("科目")
+    @Excel(name = "科目")
+    private String subjectName;
+
+    /** 区域 */
+    @ApiModelProperty("区域")
+    @Excel(name = "区域")
+    private String areaName;
+
     /** 高考分数 */
+    @ApiModelProperty("高考分数")
     @Excel(name = "高考分数")
     private String fraction;
 
     /** 院校 */
+    @ApiModelProperty("院校")
     @Excel(name = "院校")
     private String colleges;
 
     /** 最近登录时间 */
+    @ApiModelProperty("最近登录时间")
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "最近登录时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date loginTime;
 
-    /** 图像 */
-    @Excel(name = "图像")
+    /** 头像 */
+    @ApiModelProperty("头像")
+    @Excel(name = "头像")
     private String image;
 
     /** 编号id */
+    @ApiModelProperty("编号id")
     @Excel(name = "编号id")
     private String numberId;
 
     /** 微信id */
+    @ApiModelProperty("微信id")
     @Excel(name = "微信id")
     private Long openId;
 
     /** 性别 */
+    @ApiModelProperty("性别")
     @Excel(name = "性别")
     private Long sex;
 
     /** 目前身份 */
+    @ApiModelProperty("目前身份")
     @Excel(name = "目前身份")
     private String identity;
 
     /** 手机号 */
+    @ApiModelProperty("手机号")
     @Excel(name = "手机号")
     private String phone;
 
     /** 微信号 */
+    @ApiModelProperty("区域")
     @Excel(name = "微信号")
     private String wechat;
 
     /** qq号 */
+    @ApiModelProperty("qq号")
     @Excel(name = "qq号")
     private String qq;
 
     /** 身份证正 */
+    @ApiModelProperty("身份证正")
     @Excel(name = "身份证正")
     private String cardZ;
 
     /** 身份证反 */
+    @ApiModelProperty("身份证反")
     @Excel(name = "身份证反")
     private String cardF;
 
     /** 学生证/毕业证 */
+    @ApiModelProperty("学生证/毕业证")
     @Excel(name = "学生证/毕业证")
     private String studentCard;
 
     /** 身份证号 */
+    @ApiModelProperty("身份证号")
     @Excel(name = "身份证号")
     private String cardH;
 
     /** 认证状态 */
+    @ApiModelProperty("认证状态")
     @Excel(name = "认证状态")
     private String status;
 
     /** 热度 */
+    @ApiModelProperty("热度")
     @Excel(name = "热度")
     private String heat;
 
-    /** 备用1 */
+    /** 视频 */
+    @ApiModelProperty("视频")
     private String spare1;
 
-    /** 备用2 */
+    /** 老师类型 */
+    @ApiModelProperty("老师类型")
     private String spare2;
 
-    /** 备用3 */
+    /** 老师级别 */
+    @ApiModelProperty("老师级别")
     private String spare3;
 
     /** 备用4 */
+    @ApiModelProperty("备用4")
     private String spare4;
 
     /** 备用5 */
+    @ApiModelProperty("备用5")
     private String spare5;
 
     /** 备用6 */
+    @ApiModelProperty("备用6")
     private String spare6;
 
     /** 备用7 */
+    @ApiModelProperty("备用7")
     private String spare7;
 
     /** 备用8 */
+    @ApiModelProperty("备用8")
     private String spare8;
 
     /** 备用9 */
+    @ApiModelProperty("备用9")
     private String spare9;
 
     /** 备用10 */
+    @ApiModelProperty("备用10")
     private String spare10;
 
-    public void setId(Long id) 
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
+
+    public String getAreaName() {
+        return areaName;
+    }
+
+    public void setAreaName(String areaName) {
+        this.areaName = areaName;
+    }
+
+    public void setId(Long id)
     {
         this.id = id;
     }

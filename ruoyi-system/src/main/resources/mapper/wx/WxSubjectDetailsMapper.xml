@@ -11,10 +11,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="sort"    column="sort"    />
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
+        <result property="fullName"    column="full_name"    />
     </resultMap>
 
     <sql id="selectWxSubjectDetailsVo">
-        select id, name, wx_subject_details, sort, create_by, create_time from wx_subject_details
+        select id, name, wx_subject_details, sort, create_by, create_time,full_name from wx_subject_details
     </sql>
 
     <select id="selectWxSubjectDetailsList" parameterType="WxSubjectDetails" resultMap="WxSubjectDetailsResult">
@@ -39,6 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="sort != null">sort,</if>
             <if test="createBy != null">create_by,</if>
             <if test="createTime != null">create_time,</if>
+            <if test="fullName != null">full_name,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="name != null">#{name},</if>
@@ -46,6 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="sort != null">#{sort},</if>
             <if test="createBy != null">#{createBy},</if>
             <if test="createTime != null">#{createTime},</if>
+            <if test="fullName != null">#{full_name},</if>
          </trim>
     </insert>
 
@@ -57,6 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="sort != null">sort = #{sort},</if>
             <if test="createBy != null">create_by = #{createBy},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="fullName != null">full_name = #{fullName},</if>
         </trim>
         where id = #{id}
     </update>

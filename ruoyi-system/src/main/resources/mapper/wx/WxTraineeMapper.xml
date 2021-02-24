@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.wx.mapper.WxTraineeMapper">
+    
+    <resultMap type="WxTrainee" id="WxTraineeResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="phone"    column="phone"    />
+        <result property="openid"    column="openid"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectWxTraineeVo">
+        select id, name, phone, openid, create_by, create_time from wx_trainee
+    </sql>
+
+    <select id="selectWxTraineeList" parameterType="WxTrainee" resultMap="WxTraineeResult">
+        <include refid="selectWxTraineeVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+        </where>
+    </select>
+    
+    <select id="selectWxTraineeById" parameterType="Long" resultMap="WxTraineeResult">
+        <include refid="selectWxTraineeVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertWxTrainee" parameterType="WxTrainee" useGeneratedKeys="true" keyProperty="id">
+        insert into wx_trainee
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="phone != null">phone,</if>
+            <if test="openid != null">openid,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="openid != null">#{openid},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWxTrainee" parameterType="WxTrainee">
+        update wx_trainee
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="openid != null">openid = #{openid},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWxTraineeById" parameterType="Long">
+        delete from wx_trainee where id = #{id}
+    </delete>
+
+    <delete id="deleteWxTraineeByIds" parameterType="String">
+        delete from wx_trainee where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -8,13 +8,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="id"    column="id"    />
         <result property="name"    column="name"    />
         <result property="phone"    column="phone"    />
-        <result property="openid"    column="openid"    />
+        <result property="openId"    column="open_id"    />
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
     </resultMap>
 
     <sql id="selectWxTraineeVo">
-        select id, name, phone, openid, create_by, create_time from wx_trainee
+        select id, name, phone, open_id, create_by, create_time from wx_trainee
     </sql>
 
     <select id="selectWxTraineeList" parameterType="WxTrainee" resultMap="WxTraineeResult">
@@ -29,20 +29,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectWxTraineeVo"/>
         where id = #{id}
     </select>
+
+    <select id="selectWxTraineeByOpenId" parameterType="String" resultMap="WxTraineeResult">
+        <include refid="selectWxTraineeVo"/>
+         where open_id = #{openId}
+    </select>
         
     <insert id="insertWxTrainee" parameterType="WxTrainee" useGeneratedKeys="true" keyProperty="id">
         insert into wx_trainee
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="name != null">name,</if>
             <if test="phone != null">phone,</if>
-            <if test="openid != null">openid,</if>
+            <if test="openId != null">open_id,</if>
             <if test="createBy != null">create_by,</if>
             <if test="createTime != null">create_time,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="name != null">#{name},</if>
             <if test="phone != null">#{phone},</if>
-            <if test="openid != null">#{openid},</if>
+            <if test="openId != null">#{openId},</if>
             <if test="createBy != null">#{createBy},</if>
             <if test="createTime != null">#{createTime},</if>
          </trim>
@@ -53,7 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="SET" suffixOverrides=",">
             <if test="name != null">name = #{name},</if>
             <if test="phone != null">phone = #{phone},</if>
-            <if test="openid != null">openid = #{openid},</if>
+            <if test="openId != null">open_id = #{openId},</if>
             <if test="createBy != null">create_by = #{createBy},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
         </trim>

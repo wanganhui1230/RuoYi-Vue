@@ -85,6 +85,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectWxTeacherVo"/>
         where id = #{id}
     </select>
+
+    <select id="selectWxTeacherByOpenId" parameterType="String" resultMap="WxTeacherResult">
+        <include refid="selectWxTeacherVo"/>
+        where open_id = #{openId}
+    </select>
         
     <insert id="insertWxTeacher" parameterType="WxTeacher" useGeneratedKeys="true" keyProperty="id">
         insert into wx_teacher

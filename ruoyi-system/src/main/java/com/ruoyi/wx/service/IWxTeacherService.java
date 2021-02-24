@@ -22,6 +22,14 @@ public interface IWxTeacherService
     public WxTeacher selectWxTeacherById(Long id);
 
     /**
+     * 查询老师
+     *
+     * @param openId 老师ID
+     * @return 老师
+     */
+    public WxTeacher selectWxTeacherByOpenId(String openId);
+
+    /**
      * 查询老师列表
      * 
      * @param wxTeacher 老师

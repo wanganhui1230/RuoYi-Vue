@@ -33,6 +33,18 @@ public class WxTraineeServiceImpl implements IWxTraineeService
     }
 
     /**
+     * 查询学员
+     *
+     * @param openId 学员ID
+     * @return 学员
+     */
+    @Override
+    public WxTrainee selectWxTraineeByOpenId(String openId)
+    {
+        return wxTraineeMapper.selectWxTraineeByOpenId(openId);
+    }
+
+    /**
      * 查询学员列表
      * 
      * @param wxTrainee 学员

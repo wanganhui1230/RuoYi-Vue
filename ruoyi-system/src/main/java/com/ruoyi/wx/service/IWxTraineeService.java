@@ -20,6 +20,14 @@ public interface IWxTraineeService
     public WxTrainee selectWxTraineeById(Long id);
 
     /**
+     * 查询学员
+     *
+     * @param openId 学员ID
+     * @return 学员
+     */
+    public WxTrainee selectWxTraineeByOpenId(String openId);
+
+    /**
      * 查询学员列表
      * 
      * @param wxTrainee 学员

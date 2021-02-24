@@ -4,26 +4,18 @@ package com.ruoyi.web.controller.api;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
-import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.config.RuoYiConfig;
 import com.ruoyi.common.core.controller.BaseController;
-import com.ruoyi.common.core.domain.AjaxResult;
-import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.file.FileUploadUtils;
 import com.ruoyi.framework.config.ServerConfig;
 import com.ruoyi.web.controller.api.entity.*;
 import com.ruoyi.wx.domain.*;
 import com.ruoyi.wx.domain.ResWxTeacher;
-import com.ruoyi.wx.service.IWxAreaService;
-import com.ruoyi.wx.service.IWxSubjectDetailsService;
-import com.ruoyi.wx.service.IWxSubjectService;
-import com.ruoyi.wx.service.IWxTeacherService;
+import com.ruoyi.wx.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -53,6 +45,9 @@ public class ApiController extends BaseController {
 
     @Autowired
     private IWxTeacherService wxTeacherService;
+
+    @Autowired
+    private IWxTraineeService wxTraineeService;
 
     /**
      * 获取树菜单
@@ -248,6 +243,50 @@ public class ApiController extends BaseController {
     }
 
 
+    /**
+     * 新增学员
+     */
+    @PostMapping("/addWxTrainee")
+    @ApiOperation(value = "新增学员")
+    public Response addWxTrainee( WxTrainee wxTrainee)
+    {
+        Response response = new Response<>();
+        int code = wxTraineeService.insertWxTrainee(wxTrainee);
+
+        if(code>0){
+            response.setResult("成功");
+        }else{
+            response.setErrorMessage("失败");
+        }
+        return response;
+    }
+
+    /**
+     * 查看是否登录
+     */
+    @PostMapping("/IsNotLogin")
+    @ApiOperation(value = "查看是否登录")
+    public Response<RepUser> IsNotLogin( ResIsNotLogin resIsNotLogin)
+    {
+        Response<RepUser> response = new Response<>();
+        RepUser repUser = new RepUser();
+        WxTrainee wti = wxTraineeService.selectWxTraineeByOpenId(resIsNotLogin.getOpenId());
+        if(wti!=null){
+            repUser.setId(wti.getId());
+            repUser.setName(wti.getName());
+            repUser.setType(2);
+            repUser.setStatus(true);
+        }
+        WxTeacher wth = wxTeacherService.selectWxTeacherByOpenId(resIsNotLogin.getOpenId());
+        if(wth!=null){
+            repUser.setId(wth.getId());
+            repUser.setName(wth.getName());
+            repUser.setType(1);
+            repUser.setStatus(true);
+        }
+        response.setResult(repUser);
+        return response;
+    }
 
 
 

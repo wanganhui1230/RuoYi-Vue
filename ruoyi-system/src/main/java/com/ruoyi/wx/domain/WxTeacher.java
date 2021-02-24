@@ -76,7 +76,7 @@ public class WxTeacher extends BaseEntity
     /** 微信id */
     @ApiModelProperty("微信id")
     @Excel(name = "微信id")
-    private Long openId;
+    private String openId;
 
     /** 性别 */
     @ApiModelProperty("性别")
@@ -270,16 +270,16 @@ public class WxTeacher extends BaseEntity
     {
         return numberId;
     }
-    public void setOpenId(Long openId) 
+    public void setOpenId(String openId)
     {
         this.openId = openId;
     }
 
-    public Long getOpenId() 
+    public String getOpenId()
     {
         return openId;
     }
-    public void setSex(Long sex) 
+    public void setSex(Long sex)
     {
         this.sex = sex;
     }

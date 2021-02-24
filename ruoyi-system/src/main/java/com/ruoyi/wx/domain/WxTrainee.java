@@ -1,5 +1,6 @@
 package com.ruoyi.wx.domain;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
@@ -16,19 +17,23 @@ public class WxTrainee extends BaseEntity
     private static final long serialVersionUID = 1L;
 
     /** 主键id */
+    @ApiModelProperty("主键id")
     private Long id;
 
     /** 名称 */
+    @ApiModelProperty("名称")
     @Excel(name = "名称")
     private String name;
 
     /** 手机号 */
+    @ApiModelProperty("手机号")
     @Excel(name = "手机号")
     private String phone;
 
     /** 微信id */
+    @ApiModelProperty("微信id")
     @Excel(name = "微信id")
-    private String openid;
+    private String openId;
 
     public void setId(Long id) 
     {
@@ -57,14 +62,14 @@ public class WxTrainee extends BaseEntity
     {
         return phone;
     }
-    public void setOpenid(String openid) 
+    public void setOpenId(String openId)
     {
-        this.openid = openid;
+        this.openId = openId;
     }
 
-    public String getOpenid() 
+    public String getOpenId()
     {
-        return openid;
+        return openId;
     }
 
     @Override
@@ -73,7 +78,7 @@ public class WxTrainee extends BaseEntity
             .append("id", getId())
             .append("name", getName())
             .append("phone", getPhone())
-            .append("openid", getOpenid())
+            .append("openid", getOpenId())
             .append("createBy", getCreateBy())
             .append("createTime", getCreateTime())
             .toString();

@@ -34,6 +34,18 @@ public class WxTeacherServiceImpl implements IWxTeacherService
     }
 
     /**
+     * 查询老师
+     *
+     * @param openId 老师ID
+     * @return 老师
+     */
+    @Override
+    public WxTeacher selectWxTeacherByOpenId(String openId)
+    {
+        return wxTeacherMapper.selectWxTeacherByOpenId(openId);
+    }
+
+    /**
      * 查询老师列表
      * 
      * @param wxTeacher 老师

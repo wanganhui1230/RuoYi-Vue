@@ -24,6 +24,14 @@ public interface WxTeacherMapper
     /**
      * 查询老师
      *
+     * @param id 老师ID
+     * @return 老师
+     */
+    public List<WxTeacher> selectWxTeacher(Long id);
+
+    /**
+     * 查询老师
+     *
      * @param openId 老师ID
      * @return 老师
      */

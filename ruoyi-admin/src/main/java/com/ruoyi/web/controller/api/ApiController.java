@@ -16,7 +16,9 @@ import com.ruoyi.wx.domain.*;
 import com.ruoyi.wx.domain.ResWxTeacher;
 import com.ruoyi.wx.service.*;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -333,7 +335,15 @@ public class ApiController extends BaseController {
         return response;
     }
 
-
+    @PostMapping("/selectWxTeacher")
+    @ApiOperation(value = "获取备选老师列表")
+    public Response<List<WxTeacher>> selectWxTeacher(@ApiParam("学员id") @RequestParam Long id)
+    {
+        Response<List<WxTeacher>> response = new Response<>();
+        List<WxTeacher> wxTeacher = wxTeacherService.selectWxTeacher(id);
+        response.setResult(wxTeacher);
+        return response;
+    }
 
 
 

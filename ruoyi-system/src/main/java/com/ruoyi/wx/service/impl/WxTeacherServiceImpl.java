@@ -3,6 +3,7 @@ package com.ruoyi.wx.service.impl;
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.wx.domain.ResWxTeacher;
+import com.ruoyi.wx.domain.WxTrainee;
 import com.ruoyi.wx.service.IWxTeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,18 @@ public class WxTeacherServiceImpl implements IWxTeacherService
     public WxTeacher selectWxTeacherById(Long id)
     {
         return wxTeacherMapper.selectWxTeacherById(id);
+    }
+
+    /**
+     * 查询学员
+     *
+     * @param id 学员ID
+     * @return 学员
+     */
+    @Override
+    public List<WxTeacher> selectWxTeacher(Long id)
+    {
+        return wxTeacherMapper.selectWxTeacher(id);
     }
 
     /**

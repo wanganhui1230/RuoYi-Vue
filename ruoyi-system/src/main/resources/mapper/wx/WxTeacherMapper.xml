@@ -86,6 +86,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
 
+    <select id="selectWxTeacher" parameterType="Long" resultMap="WxTeacherResult">
+        select wxt.* from wx_alternative wa
+        left join wx_teacher wxt on wxt.id = wa.teacher_id
+        where wa.trainee_id = #{id}
+    </select>
+
     <select id="selectWxTeacherByOpenId" parameterType="String" resultMap="WxTeacherResult">
         <include refid="selectWxTeacherVo"/>
         where open_id = #{openId}

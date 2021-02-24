@@ -32,6 +32,8 @@ public class WxTraineeServiceImpl implements IWxTraineeService
         return wxTraineeMapper.selectWxTraineeById(id);
     }
 
+
+
     /**
      * 查询学员
      *

@@ -19,6 +19,8 @@ public interface IWxTraineeService
      */
     public WxTrainee selectWxTraineeById(Long id);
 
+
+
     /**
      * 查询学员
      *

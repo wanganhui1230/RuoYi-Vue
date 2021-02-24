@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ruoyi.wx.domain.ResWxTeacher;
 import com.ruoyi.wx.domain.WxTeacher;
+import com.ruoyi.wx.domain.WxTrainee;
 
 /**
  * 老师Service接口
@@ -20,6 +21,14 @@ public interface IWxTeacherService
      * @return 老师
      */
     public WxTeacher selectWxTeacherById(Long id);
+
+    /**
+     * 查询学员
+     *
+     * @param id 学员ID
+     * @return 学员
+     */
+    public List<WxTeacher> selectWxTeacher(Long id);
 
     /**
      * 查询老师

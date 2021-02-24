@@ -4,8 +4,11 @@ package com.ruoyi.web.controller.api;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
+import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.config.RuoYiConfig;
 import com.ruoyi.common.core.controller.BaseController;
+import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.file.FileUploadUtils;
 import com.ruoyi.framework.config.ServerConfig;
 import com.ruoyi.web.controller.api.entity.*;
@@ -20,6 +23,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -53,7 +57,7 @@ public class ApiController extends BaseController {
     /**
      * 获取树菜单
      */
-    @GetMapping("/getTreelist")
+    @PostMapping("/getTreelist")
     @ApiOperation(value = "获取科目二级菜单")
     public Response<List<RepTreelist>> getTreelist()
     {
@@ -88,7 +92,7 @@ public class ApiController extends BaseController {
     /**
      * 查询区域列表
      */
-    @GetMapping("/getArealist")
+    @PostMapping("/getArealist")
     @ApiOperation(value = "获取区域")
     public Response<List<RepArea>> getArealist()
     {
@@ -187,6 +191,63 @@ public class ApiController extends BaseController {
         response.setTotal(new PageInfo(list).getTotal());
         return response;
     }
+
+    /**
+     * 增加老师热度
+     */
+    @PostMapping("/addHeat")
+    @ApiOperation(value = "增加老师热度")
+    public Response addHeat(ResHeat resHeat)
+    {
+        Response response = new Response<>();
+        WxTeacher wxTeacher = new WxTeacher();
+        WxTeacher wt = wxTeacherService.selectWxTeacherById(resHeat.getId());
+        wxTeacher.setId(resHeat.getId());
+        wxTeacher.setHeat(Integer.parseInt(wt.getHeat())+1+"");
+        int code =  wxTeacherService.updateWxTeacher(wxTeacher);
+        if(code>0){
+            response.setResult("成功");
+        }else{
+            response.setErrorMessage("失败");
+        }
+        return response;
+    }
+
+    /**
+     * 新增老师
+     */
+    @PostMapping("/addWxTeacher")
+    @ApiOperation(value = "新增老师信息")
+    public Response add(WxTeacher wxTeacher)
+    {
+        Response response = new Response<>();
+        int code = wxTeacherService.insertWxTeacher(wxTeacher);
+        if(code>0){
+            response.setResult("成功");
+        }else{
+            response.setErrorMessage("失败");
+        }
+        return response;
+    }
+
+    /**
+     * 修改老师
+     */
+    @PostMapping("/editWxTeacher")
+    @ApiOperation(value = "修改老师信息")
+    public Response edit(WxTeacher wxTeacher)
+    {
+        Response response = new Response<>();
+        int code = wxTeacherService.updateWxTeacher(wxTeacher);
+        if(code>0){
+            response.setResult("成功");
+        }else{
+            response.setErrorMessage("失败");
+        }
+        return response;
+    }
+
+
 
 
 

@@ -146,17 +146,17 @@
     <!-- 查看备选老师 -->
     <el-dialog :title="title" :visible.sync="openBx" width="800px" append-to-body>
       <el-table :data="subjectsData" border style="width: 100%">
-        <el-table-column prop="date" label="老师姓名" width="180">
-        </el-table-column>
-        <el-table-column prop="name" label="电话" width="180">
+        <el-table-column prop="name" label="老师姓名" width="180">
         </el-table-column>
         <el-table-column label="头像">
       　　<template slot-scope="scope">
 						<el-popover placement="top-start" trigger="click">
-							<a :href="scope.row.address" target="_blank" title="查看最大化图片"><img :src="scope.row.address" style="width: 600px;height: 600px" /></a>
-							<img slot="reference" :src="scope.row.address" style="width: 50px;height: 50px; cursor:pointer" />
+							<a :href="scope.row.image" target="_blank" title="查看最大化图片"><img :src="scope.row.image" style="width: 600px;height: 600px" /></a>
+							<img slot="reference" :src="scope.row.image" style="width: 50px;height: 50px; cursor:pointer" />
 						</el-popover>
 					</template>
+        </el-table-column>
+        <el-table-column prop="phone" label="电话" width="180">
         </el-table-column>
       </el-table>
     </el-dialog>
@@ -190,6 +190,7 @@ import {
   addTrainee,
   updateTrainee,
   exportTrainee,
+  selectWxTeacher
 } from "@/api/wx/trainee";
 
 export default {
@@ -288,6 +289,10 @@ export default {
     handleSleect(row) {
       this.reset();
       const id = row.id || this.ids;
+      selectWxTeacher(id).then((response) => {
+        console.log(response.result)
+        this.subjectsData = response.result;
+      });
       this.openBx = true;
       this.title = "查看备选老师";
     },

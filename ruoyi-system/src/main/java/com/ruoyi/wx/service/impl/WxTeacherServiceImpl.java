@@ -1,6 +1,8 @@
 package com.ruoyi.wx.service.impl;
 
 import java.util.List;
+import java.util.Random;
+
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.wx.domain.ResWxTeacher;
 import com.ruoyi.wx.domain.WxTrainee;
@@ -91,8 +93,24 @@ public class WxTeacherServiceImpl implements IWxTeacherService
     @Override
     public int insertWxTeacher(WxTeacher wxTeacher)
     {
+        wxTeacher.setNumberId("T"+createIdCard());
         wxTeacher.setCreateTime(DateUtils.getNowDate());
         return wxTeacherMapper.insertWxTeacher(wxTeacher);
+    }
+
+    /**
+     * 生成随机10位数
+     * @return
+     */
+    public String createIdCard(){
+        StringBuilder str=new StringBuilder();//定义变长字符串
+        Random random=new Random();
+        //随机生成数字，并添加到字符串
+        for(int i=0;i<10;i++){
+            str.append(random.nextInt(10));
+        }
+
+        return str.toString();
     }
 
     /**

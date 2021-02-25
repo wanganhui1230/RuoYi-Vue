@@ -51,3 +51,17 @@ export function exportTrainee(query) {
     params: query
   })
 }
+
+// 获取备选老师列表
+export function selectWxTeacher(data) {
+  return request({
+    url: '/api/selectWxTeacher',
+    headers: {
+      isToken: false,
+    },
+    method: 'post',
+    params: {
+      id:data
+    }
+  })
+}

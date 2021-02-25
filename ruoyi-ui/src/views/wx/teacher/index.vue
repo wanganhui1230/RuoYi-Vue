@@ -29,8 +29,8 @@
       </el-form-item>
       <el-form-item label="性别" prop="sex">
         <el-select v-model="queryParams.sex" placeholder="请选择性别" clearable size="small">
-          <el-option label="男" value="1" />
-          <el-option label="女" value="2" />
+          <el-option label="男" value="男" />
+          <el-option label="女" value="女" />
         </el-select>
       </el-form-item>
       <el-form-item label="手机号" prop="phone">
@@ -129,6 +129,7 @@
 
     <el-table v-loading="loading" :data="teacherList" style="width: 100%" max-height="250" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
+      <el-table-column label="编号" align="center" prop="numberId" />
       <el-table-column label="名称" align="center" prop="name" />
       <el-table-column label="科目" align="center" prop="subjectName" />
       <el-table-column label="区域" align="center" prop="areaName" />
@@ -154,7 +155,6 @@
 						</el-popover>
 					</template>
       </el-table-column>
-      <el-table-column label="编号id" align="center" prop="numberId" />
       <el-table-column label="微信id" align="center" prop="openId" />
       <el-table-column label="性别" align="center" prop="sex" />
       <el-table-column label="目前身份" align="center" prop="identity" />
@@ -258,16 +258,16 @@
         <el-form-item label="视频">
           <fileUpload v-model="form.spare1"/>
         </el-form-item>
-        <el-form-item label="编号id" prop="numberId">
+        <!-- <el-form-item label="编号id" prop="numberId">
           <el-input v-model="form.numberId" placeholder="请输入编号id" />
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="微信id" prop="openId">
           <el-input v-model="form.openId" placeholder="请输入微信id" />
         </el-form-item>
         <el-form-item label="性别" prop="sex">
           <el-select v-model="form.sex" placeholder="请选择性别">
-            <el-option  value="1" label="男"/>
-            <el-option  value="2" label="女"/>
+            <el-option  value="男" label="男"/>
+            <el-option  value="女" label="女"/>
           </el-select>
         </el-form-item>
         <el-form-item label="目前身份" prop="identity">

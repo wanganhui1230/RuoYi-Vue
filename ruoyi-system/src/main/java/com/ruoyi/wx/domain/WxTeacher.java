@@ -81,7 +81,7 @@ public class WxTeacher extends BaseEntity
     /** 性别 */
     @ApiModelProperty("性别")
     @Excel(name = "性别")
-    private Long sex;
+    private String sex;
 
     /** 目前身份 */
     @ApiModelProperty("目前身份")
@@ -279,12 +279,12 @@ public class WxTeacher extends BaseEntity
     {
         return openId;
     }
-    public void setSex(Long sex)
+    public void setSex(String sex)
     {
         this.sex = sex;
     }
 
-    public Long getSex() 
+    public String getSex()
     {
         return sex;
     }

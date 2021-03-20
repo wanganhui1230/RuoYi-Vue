@@ -131,49 +131,80 @@ public class ApiController extends BaseController {
         }
         catch (Exception e)
         {
+            e.printStackTrace();
             response.setErrorMessage("上传失败");
             return response;
         }
     }
 
 
-    @PostMapping("/decodeUserInfo")
-    @ApiOperation(value = "获取微信信息和手机号")
-    private Response<RepWx> decodeUserInfo(PayDto payDto) {
-        Response<RepWx> response = new Response<>();
-        String encryptedData = payDto.getEncryptedData();
-        String iv = payDto.getIv();
-        String code = payDto.getCode();
-        log.info("前端传入到decodeUserInfo 的encryptedData == " + encryptedData+"iv == " + iv+"code == "+code);
-        Map<String,Object> map = new HashMap<>();
-        if (code == null || code.length() == 0) {
-            response.setErrorMessage("code 不能为空");
-            return response;
-        }
-        String wechatAppId = "";
-        String wechatSecretKey = "";
-        String grantType = "authorization_code";
-        String params = "appid=" + wechatAppId + "&secret="+wechatSecretKey+"&js_code=" + code + "&grant_type=" + grantType;
-        String sr = HttpRequest.sendGet("https://api.weixin.qq.com/sns/jscode2session", params);
-        JSONObject json = JSONObject.parseObject(sr);
+    @PostMapping({"/decodeUserInfo"})
+    @ApiOperation(value = "获取微信信息openid")
+    private Map<String, Object> decodeUserInfo(String code) {
+        Map<String, Object> map = new HashMap();
+        if (code != null && code.length() != 0) {
+            String wechatAppId = "wxabcbf17a4b2f6168";
+            String wechatSecretKey = "48eb021c3ca2bd05d7e736777194b877";
+            String grantType = "authorization_code";
+            String params = "appid=" + wechatAppId + "&secret=" + wechatSecretKey + "&js_code=" + code + "&grant_type=" + grantType;
+            String sr = HttpRequest.sendGet("https://api.weixin.qq.com/sns/jscode2session", params);
+            JSONObject json = JSONObject.parseObject(sr);
+            if (null == json.get("openid") && "".equals(json.get("openid"))) {
+                map.put("code", "500");
+                map.put("msg", "失败");
+            } else {
+                Map<String, Object> userInfo = new HashMap();
+                userInfo.put("openId", json.get("openid"));
+                map.put("data", userInfo);
+                map.put("code", "0");
+                map.put("msg", "成功");
+            }
 
-        String sessionKey = String.valueOf(json.get("session_key"));
-        WXBizDataCrypt wxBizDataCrypt = new WXBizDataCrypt("wx_v3.appID.sp",sessionKey);
-        JSONObject jsonObject = wxBizDataCrypt.decryptData(encryptedData, iv);
-
-        if(null ==json.get("openid") && "".equals(json.get("openid"))){
-            response.setErrorMessage("失败");
-            return response;
-        }else{
-            RepWx userInfo = new RepWx();
-            userInfo.setOpenId(json.get("openid").toString());
-            userInfo.setPhoneNumber(jsonObject.get("phoneNumber").toString());
-            log.info("jsonObject:"+jsonObject);
-            log.info("手机号："+jsonObject.get("phoneNumber"));
-            response.setResult(userInfo);
+            return map;
+        } else {
+            map.put("status", 0);
+            map.put("msg", "code 不能为空");
+            return map;
         }
-        return response;
     }
+
+//    @PostMapping("/decodeUserInfo")
+//    @ApiOperation(value = "获取微信信息和手机号")
+//    private Response<RepWx> decodeUserInfo(PayDto payDto) {
+//        Response<RepWx> response = new Response<>();
+//        String encryptedData = payDto.getEncryptedData();
+//        String iv = payDto.getIv();
+//        String code = payDto.getCode();
+//        log.info("前端传入到decodeUserInfo 的encryptedData == " + encryptedData+"iv == " + iv+"code == "+code);
+//        Map<String,Object> map = new HashMap<>();
+//        if (code == null || code.length() == 0) {
+//            response.setErrorMessage("code 不能为空");
+//            return response;
+//        }
+//        String wechatAppId = "";
+//        String wechatSecretKey = "";
+//        String grantType = "authorization_code";
+//        String params = "appid=" + wechatAppId + "&secret="+wechatSecretKey+"&js_code=" + code + "&grant_type=" + grantType;
+//        String sr = HttpRequest.sendGet("https://api.weixin.qq.com/sns/jscode2session", params);
+//        JSONObject json = JSONObject.parseObject(sr);
+//
+//        String sessionKey = String.valueOf(json.get("session_key"));
+//        WXBizDataCrypt wxBizDataCrypt = new WXBizDataCrypt("wx_v3.appID.sp",sessionKey);
+//        JSONObject jsonObject = wxBizDataCrypt.decryptData(encryptedData, iv);
+//
+//        if(null ==json.get("openid") && "".equals(json.get("openid"))){
+//            response.setErrorMessage("失败");
+//            return response;
+//        }else{
+//            RepWx userInfo = new RepWx();
+//            userInfo.setOpenId(json.get("openid").toString());
+//            userInfo.setPhoneNumber(jsonObject.get("phoneNumber").toString());
+//            log.info("jsonObject:"+jsonObject);
+//            log.info("手机号："+jsonObject.get("phoneNumber"));
+//            response.setResult(userInfo);
+//        }
+//        return response;
+//    }
 
     /**
      * 查询老师列表
@@ -187,6 +218,19 @@ public class ApiController extends BaseController {
         ResponsePage<List<WxTeacher>> response = new ResponsePage<>();
         response.setResult(list);
         response.setTotal(new PageInfo(list).getTotal());
+        return response;
+    }
+
+    /**
+     * 查询老师信息
+     */
+    @PostMapping("/getTeacherId")
+    @ApiOperation(value = "查询老师信息")
+    public Response<WxTeacher> getTeacherId(Long id)
+    {
+        WxTeacher wt = wxTeacherService.selectWxTeacherById(id);
+        Response<WxTeacher> response = new Response<>();
+        response.setResult(wt);
         return response;
     }
 

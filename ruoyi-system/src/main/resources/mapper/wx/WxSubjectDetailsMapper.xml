@@ -48,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="sort != null">#{sort},</if>
             <if test="createBy != null">#{createBy},</if>
             <if test="createTime != null">#{createTime},</if>
-            <if test="fullName != null">#{full_name},</if>
+            <if test="fullName != null">#{fullName},</if>
          </trim>
     </insert>
 

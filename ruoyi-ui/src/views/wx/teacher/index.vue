@@ -127,10 +127,11 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="teacherList" style="width: 100%" max-height="250" @selection-change="handleSelectionChange">
+    <el-table v-loading="loading" :data="teacherList" style="width: 100%" max-height="1200" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="编号" align="center" prop="numberId" />
       <el-table-column label="名称" align="center" prop="name" />
+      <el-table-column label="老师等级" align="center" prop="spare3" />
       <el-table-column label="科目" align="center" prop="subjectName" />
       <el-table-column label="区域" align="center" prop="areaName" />
       <el-table-column label="高考分数" align="center" prop="fraction" />
@@ -188,7 +189,7 @@
       <el-table-column label="身份证号" align="center" prop="cardH" />
       <el-table-column label="认证状态" align="center" prop="status" />
       <el-table-column label="热度" align="center" prop="heat" />
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="操作"  fixed="right" width="200">
         <template slot-scope="scope">
           <el-button
             size="mini"
@@ -296,8 +297,19 @@
         </el-form-item>
         <el-form-item label="认证状态">
           <el-radio-group v-model="form.status">
-            <el-radio label="1">认证</el-radio>
-            <el-radio label="2">未认证</el-radio>
+            <el-radio label="已认证">已认证</el-radio>
+            <el-radio label="未认证">未认证</el-radio>
+          </el-radio-group>
+        </el-form-item>
+
+        <el-form-item label="教师等级">
+          <el-radio-group v-model="form.spare3">
+            <el-radio label="S">S</el-radio>
+            <el-radio label="A">A</el-radio>
+            <el-radio label="B">B</el-radio>
+            <el-radio label="C">C</el-radio>
+            <el-radio label="D">D</el-radio>
+            <el-radio label="E">E</el-radio>
           </el-radio-group>
         </el-form-item>
         <!-- <el-form-item label="热度" prop="heat">

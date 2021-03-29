@@ -19,10 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -263,6 +262,8 @@ public class ApiController extends BaseController {
     public Response add(WxTeacher wxTeacher)
     {
         Response response = new Response<>();
+        wxTeacher.setStatus("未认证");
+        wxTeacher.setLoginTime(new Date());
         int code = wxTeacherService.insertWxTeacher(wxTeacher);
         if(code>0){
             response.setResult("成功");

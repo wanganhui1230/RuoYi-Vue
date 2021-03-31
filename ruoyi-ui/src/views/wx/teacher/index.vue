@@ -156,7 +156,6 @@
 						</el-popover>
 					</template>
       </el-table-column>
-      <el-table-column label="微信id" align="center" prop="openId" />
       <el-table-column label="性别" align="center" prop="sex" />
       <el-table-column label="目前身份" align="center" prop="identity" />
       <el-table-column label="手机号" align="center" prop="phone" />
@@ -289,7 +288,7 @@
         <el-form-item label="身份证反">
           <imageUpload v-model="form.cardF"/>
         </el-form-item>
-        <el-form-item label="学生证/毕业证">
+        <el-form-item label="学生证和毕业证">
           <imageUpload v-model="form.studentCard"/>
         </el-form-item>
         <el-form-item label="身份证号" prop="cardH">

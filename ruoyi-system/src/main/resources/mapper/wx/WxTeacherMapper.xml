@@ -82,8 +82,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="selectWxTeacherById" parameterType="Long" resultMap="WxTeacherResult">
-        <include refid="selectWxTeacherVo"/>
-        where id = #{id}
+        select wt.id, wt.name, wt.subject, wt.area, wt.fraction, wt.colleges, wt.login_time,
+        wt.image, wt.number_id, wt.open_id, wt.sex, wt.Identity, wt.phone, wt.wechat, wt.qq,
+        wt.card_z, wt.card_f, wt.student_card, wt.card_h, wt.status, wt.heat, wt.create_by,
+        wt.create_time, wt.update_by, wt.update_time, wt.spare1, wt.spare2, wt.spare3, wt.spare4,
+        wt.spare5, wt.spare6, wt.spare7, wt.spare8, wt.spare9, wt.spare10,
+        wa.`name` as areaName,wsd.full_name as subjectName from wx_teacher wt
+        left join wx_area wa on wa.id = wt.area
+        left join wx_subject_details wsd on wsd.id = wt.`subject` where wt.`status` ='已认证'
+        and wt.id = #{id}
     </select>
 
     <select id="selectWxTeacher" parameterType="Long" resultMap="WxTeacherResult">

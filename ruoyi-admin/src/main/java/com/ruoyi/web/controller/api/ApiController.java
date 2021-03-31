@@ -264,6 +264,10 @@ public class ApiController extends BaseController {
         Response response = new Response<>();
         wxTeacher.setStatus("未认证");
         wxTeacher.setLoginTime(new Date());
+        WxSubjectDetails wxSubjectDetails = new WxSubjectDetails();
+        wxSubjectDetails.setFullName(wxTeacher.getSubjectName());
+        List<WxSubjectDetails> wsd = wxSubjectDetailsService.selectWxSubjectDetailsList(wxSubjectDetails);
+        wxTeacher.setSubject(wsd.get(0).getId()+"");
         int code = wxTeacherService.insertWxTeacher(wxTeacher);
         if(code>0){
             response.setResult("成功");

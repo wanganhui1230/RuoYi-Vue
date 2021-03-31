@@ -90,8 +90,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         wt.spare5, wt.spare6, wt.spare7, wt.spare8, wt.spare9, wt.spare10,
         wa.`name` as areaName,wsd.full_name as subjectName from wx_teacher wt
         left join wx_area wa on wa.id = wt.area
-        left join wx_subject_details wsd on wsd.id = wt.`subject` where wt.`status` ='已认证'
-        and wt.id = #{id}
+        left join wx_subject_details wsd on wsd.id = wt.`subject` where
+         wt.id = #{id}
     </select>
 
     <select id="selectWxTeacher" parameterType="Long" resultMap="WxTeacherResult">

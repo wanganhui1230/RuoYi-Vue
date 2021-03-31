@@ -71,8 +71,8 @@
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-select v-model="queryParams.status" placeholder="请选择认证状态" clearable size="small">
-          <el-option label="认证" value="1" />
-          <el-option label="未认证" value="2" />
+          <el-option label="已认证" value="已认证" />
+          <el-option label="未认证" value="未认证" />
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -261,9 +261,6 @@
         <!-- <el-form-item label="编号id" prop="numberId">
           <el-input v-model="form.numberId" placeholder="请输入编号id" />
         </el-form-item> -->
-        <el-form-item label="微信id" prop="openId">
-          <el-input v-model="form.openId" placeholder="请输入微信id" />
-        </el-form-item>
         <el-form-item label="性别" prop="sex">
           <el-select v-model="form.sex" placeholder="请选择性别">
             <el-option  value="男" label="男"/>
@@ -463,7 +460,7 @@ export default {
         cardF: null,
         studentCard: null,
         cardH: null,
-        status: "0",
+        status: null,
         heat: null,
         createBy: null,
         createTime: null,
@@ -509,6 +506,8 @@ export default {
       this.reset();
       const id = row.id || this.ids
       getTeacher(id).then(response => {
+        console.log(response.data+"11111")
+        alert("2222")
         this.form = response.data;
         this.open = true;
         this.title = "修改老师";

@@ -24,6 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
             <if test="wxSubjectDetails != null "> and wx_subject_details = #{wxSubjectDetails}</if>
             <if test="sort != null  and sort != ''"> and sort = #{sort}</if>
+            <if test="fullName != null  and fullName != ''"> and full_name = #{fullName}</if>
         </where>
     </select>
     

@@ -233,7 +233,7 @@
         <el-form-item label="区域" prop="area">
           <el-select v-model="form.area" placeholder="请选择区域">
               <el-option 
-              :key="area.uid" v-for="area in areaList" 
+              :key="area.uid" v-for="area in areaList"
               :label="area.name" 
               :value="area.id" />
           </el-select>

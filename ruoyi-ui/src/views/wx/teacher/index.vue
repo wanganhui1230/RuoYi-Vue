@@ -506,8 +506,7 @@ export default {
       this.reset();
       const id = row.id || this.ids
       getTeacher(id).then(response => {
-        console.log(response.data+"11111")
-        alert("2222")
+        response.data.area = parseInt(response.data.area);
         this.form = response.data;
         this.open = true;
         this.title = "修改老师";

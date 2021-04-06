@@ -161,22 +161,22 @@
       <el-table-column label="手机号" align="center" prop="phone" />
       <el-table-column label="微信号" align="center" prop="wechat" />
       <el-table-column label="qq号" align="center" prop="qq" />
-      <el-table-column label="身份证正">
-      　　<template slot-scope="scope">
-						<el-popover placement="top-start" trigger="click">
-							<a :href="scope.row.cardZ" target="_blank" title="查看最大化图片"><img :src="scope.row.cardZ" style="width: 600px;height: 600px" /></a>
-							<img slot="reference" :src="scope.row.cardZ" style="width: 50px;height: 50px; cursor:pointer" />
-						</el-popover>
-					</template>
-      </el-table-column>
-      <el-table-column label="身份证反">
-      　　<template slot-scope="scope">
-						<el-popover placement="top-start" trigger="click">
-							<a :href="scope.row.cardF" target="_blank" title="查看最大化图片"><img :src="scope.row.cardF" style="width: 600px;height: 600px" /></a>
-							<img slot="reference" :src="scope.row.cardF" style="width: 50px;height: 50px; cursor:pointer" />
-						</el-popover>
-					</template>
-      </el-table-column>
+<!--      <el-table-column label="身份证正">-->
+<!--      　　<template slot-scope="scope">-->
+<!--						<el-popover placement="top-start" trigger="click">-->
+<!--							<a :href="scope.row.cardZ" target="_blank" title="查看最大化图片"><img :src="scope.row.cardZ" style="width: 600px;height: 600px" /></a>-->
+<!--							<img slot="reference" :src="scope.row.cardZ" style="width: 50px;height: 50px; cursor:pointer" />-->
+<!--						</el-popover>-->
+<!--					</template>-->
+<!--      </el-table-column>-->
+<!--      <el-table-column label="身份证反">-->
+<!--      　　<template slot-scope="scope">-->
+<!--						<el-popover placement="top-start" trigger="click">-->
+<!--							<a :href="scope.row.cardF" target="_blank" title="查看最大化图片"><img :src="scope.row.cardF" style="width: 600px;height: 600px" /></a>-->
+<!--							<img slot="reference" :src="scope.row.cardF" style="width: 50px;height: 50px; cursor:pointer" />-->
+<!--						</el-popover>-->
+<!--					</template>-->
+<!--      </el-table-column>-->
       <el-table-column label="毕业证">
           <template slot-scope="scope">
 						<el-popover placement="top-start" trigger="click">
@@ -279,12 +279,12 @@
         <el-form-item label="qq号" prop="qq">
           <el-input v-model="form.qq" placeholder="请输入qq号" />
         </el-form-item>
-        <el-form-item label="身份证正">
-          <imageUpload v-model="form.cardZ"/>
-        </el-form-item>
-        <el-form-item label="身份证反">
-          <imageUpload v-model="form.cardF"/>
-        </el-form-item>
+<!--        <el-form-item label="身份证正">-->
+<!--          <imageUpload v-model="form.cardZ"/>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="身份证反">-->
+<!--          <imageUpload v-model="form.cardF"/>-->
+<!--        </el-form-item>-->
         <el-form-item label="学生证和毕业证">
           <imageUpload v-model="form.studentCard"/>
         </el-form-item>

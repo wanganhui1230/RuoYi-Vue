@@ -8,6 +8,8 @@ import com.ruoyi.common.config.RuoYiConfig;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.utils.file.FileUploadUtils;
 import com.ruoyi.framework.config.ServerConfig;
+import com.ruoyi.system.domain.SysNotice;
+import com.ruoyi.system.service.ISysNoticeService;
 import com.ruoyi.web.controller.api.entity.*;
 import com.ruoyi.wx.domain.*;
 import com.ruoyi.wx.domain.ResWxTeacher;
@@ -50,6 +52,22 @@ public class ApiController extends BaseController {
 
     @Autowired
     private IWxAlternativeService wxAlternativeService;
+
+    @Autowired
+    private ISysNoticeService sysNoticeService;
+
+    /**
+     * 视频开关
+     */
+    @PostMapping("/videoSwitch")
+    @ApiOperation(value = "视频开关")
+    public Response videoSwitch()
+    {
+        SysNotice list = sysNoticeService.selectNoticeById(3l);
+        Response response = new Response<>();
+        response.setResult(list.getStatus());
+        return response;
+    }
 
     /**
      * 获取树菜单
